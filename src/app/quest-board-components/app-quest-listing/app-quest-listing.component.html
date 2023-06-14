@@ -1,5 +1,4 @@
 <div class="quest-listing" [ngStyle]="{'transform': 'rotate('+rotation+')'}" (click)="openDialog()">
-  <h3 id="quest-title"><span [ngClass]="[questRank] ? questRank : 'D'">{{questRank}}</span><b>{{title}}</b></h3>
-  <p id="quest-description">{{description}}</p>
-  <p id="requester">- {{requester}}</p>
+  <p>{{title}}</p>
+  <p>{{description}}</p>
 </div>

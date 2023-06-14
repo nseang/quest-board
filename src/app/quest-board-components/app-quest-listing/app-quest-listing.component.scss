@@ -1,74 +1,8 @@
 .quest-listing {
   text-align: center;
   background-color: white;
-  width: 310px;
+  width: 20vw;
   box-shadow: 7px 7px 7px #916429;
   min-height: 300px;
   margin: 1rem;
-}
-
-#requester {
-  margin: inherit;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-#quest-title {
-  padding-top: 10px
-}
-
-#quest-description {
-  margin: auto;
-  padding: 10px;
-}
-
-.D {
-  color: blue;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 5%;
-  top: 10%;
-}
-
-.C {
-  color: green;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 5%;
-  top: 10%;
-}
-
-.B {
-  color: #ffc107;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 5%;
-  top: 10%;
-}
-
-.A {
-  color: darkorange;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 5%;
-  top: 10%;
-}
-
-.S {
-  color: red;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 5%;
-  top: 10%;
 }

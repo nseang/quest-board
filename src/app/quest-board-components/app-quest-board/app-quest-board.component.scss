@@ -1,7 +1,7 @@
 .quest-board {
   background-color: #bd7e2b;
   width: 95vw;
-  min-height: 95vh;
+  height: 95vh;
   margin: auto;
   border-width: 10px;
   border-color: white;
@@ -10,10 +10,4 @@
 
 .quest-action {
   float: right;
-}
-
-.board-actions {
-  position: sticky;
-  top: 20px;
-  z-index: 100;
 }

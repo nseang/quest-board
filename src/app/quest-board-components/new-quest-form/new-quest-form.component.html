@@ -1,34 +1,17 @@
 <h1 mat-dialog-title>Quest Form</h1>
 <div mat-dialog-content>
-
-<div>
-  <mat-form-field id="quest-title">
+  <mat-form-field>
     <mat-label>Quest Name</mat-label>
     <input matInput placeholder="Quest Name" [(ngModel)]="data.questName">
   </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Difficulty</mat-label>
-    <select matNativeControl [(ngModel)]="data.questRank">
-      <option value="D">D</option>
-      <option value="C">C</option>
-      <option value="B">B</option>
-      <option value="A">A</option>
-      <option value="S">S</option>
-    </select>
-  </mat-form-field>
-</div>
-
   <mat-form-field>
     <mat-label>Description</mat-label>
     <textarea matInput placeholder="Description" [(ngModel)]="data.questDescription"></textarea>
   </mat-form-field>
-
   <mat-form-field>
     <mat-label>Quest Giver</mat-label>
     <input matInput placeholder="Quest Giver" [(ngModel)]="data.questGiver">
   </mat-form-field>
-
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
