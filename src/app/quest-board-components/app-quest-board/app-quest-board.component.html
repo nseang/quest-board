@@ -1,0 +1,17 @@
+<div class="quest-board">
+
+ <div class="row">
+  <div class="col" *ngFor="let quest of questList">
+   <app-quest-listing
+    [rotation] = quest.rotation
+    [title] = quest.title
+    [description] = quest.description
+    (questClicked)="openQuestDialog(quest)">
+   </app-quest-listing>
+  </div>
+ </div>
+
+
+</div>
+
+ <button class="quest-action" mat-raised-button color="primary" (click)="openNewQuestDialog()">Post new Quest</button>

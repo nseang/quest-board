@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  <h3 mat-dialog-title>Quest: {{data.questData.title}}</h3>
+  <p>Quest Details:</p>
+  <p>{{data.questData.description}}</p>
+
+  <p class="requester">Reqester: {{data.questData.requester}}</p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data">Remove</button>
+</div>
