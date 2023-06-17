@@ -1,2 +1,7 @@
 <!-- <app-nav-bar></app-nav-bar> -->
-<app-quest-board></app-quest-board>
+<firebase-ui
+  (signInSuccessWithAuthResult)="successCallback($event)"
+  (signInFailure)="errorCallback($event)"
+  ></firebase-ui>
+  
+  <app-quest-board></app-quest-board>
