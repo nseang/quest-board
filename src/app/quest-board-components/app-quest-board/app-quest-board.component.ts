@@ -98,7 +98,8 @@ export class AppQuestBoardComponent implements OnInit {
   }
 
   
-  postQuest(quest: Quest) {
+  async postQuest(quest: Quest) {
+    await this.questService.getTokenHeader();
     this.questService.postQuest(quest).subscribe(data => {
       this.latestQuestID = data.id;
       this.questName = null;
@@ -107,6 +108,10 @@ export class AppQuestBoardComponent implements OnInit {
 
       this.getQuests();
     });
+  }
+
+  logOut() {
+    this.questService.signOut();
   }
 
 };
