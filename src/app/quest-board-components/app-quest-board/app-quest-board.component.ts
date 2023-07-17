@@ -9,6 +9,7 @@ export interface NewQuestData {
   questName: string;
   questDescription: string;
   questGiver: string;
+  questRank: string;
 }
 
 @Component({
@@ -21,6 +22,7 @@ export class AppQuestBoardComponent implements OnInit {
   questName!: string | null;
   questDescription!: string | null;
   questGiver!: string | null;
+  questRank!: string |null;
   latestQuestID: string | undefined;
 
   constructor(
@@ -43,7 +45,8 @@ export class AppQuestBoardComponent implements OnInit {
           description: quests.quest.description,
           requester: quests.quest.requester,
           rotation: Math.floor(Math.random() * 6) - 3 + "deg",
-          questID: quests.questID
+          questID: quests.questID,
+          questRank: quests.quest.questRank
         }))
         console.log(this.questList)
       },
@@ -53,19 +56,21 @@ export class AppQuestBoardComponent implements OnInit {
 
   openNewQuestDialog(): void {
     const dialogRef = this.dialog.open(NewQuestFormComponent, {
-      data: {questName: this.questName, questDescription: this.questDescription, questGiver: this.questGiver},
+      data: {questName: this.questName, questDescription: this.questDescription, questGiver: this.questGiver, questRank: this.questRank},
       width: '60%'
     })
     
     dialogRef.afterClosed().subscribe(result => {
       this.questName = result.questName;
       this.questDescription = result.questDescription;
-      this.questGiver = result.questGiver
+      this.questGiver = result.questGiver;
+      this.questRank = result.questRank;
       if (this.questName && this.questGiver && this.questDescription) {
         let newQuest: Quest = {
           title: this.questName,
           description: this.questDescription,
-          requester: this.questGiver
+          requester: this.questGiver,
+          questRank: this.questRank
         }
         console.log(newQuest,'new quest')
         this.postQuest(newQuest)
