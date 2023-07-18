@@ -42,7 +42,7 @@ jobs:
         git clone https://github.com/nseang/quest-board.git
         ls -ltr
         pwd
-        cd quest-board
+        cd "quest-board"
         run: npm install
         echo "starting rebase"
         git rebase -s recursive -X theirs master 
