@@ -37,7 +37,9 @@ jobs:
       with: 
           node-version: 16.17.1
     - name: npm dependencies
-      run: npm install 
+      run: |
+        ls -ltr
+        npm install 
          
     - name: testing feature
       run:  |
