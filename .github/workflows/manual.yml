@@ -35,7 +35,9 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v1
       with: 
-          node-version: 12.8
+          node-version: 16.17.1
+    - name: npm dependencies
+      run: npm install 
          
     - name: testing feature
       run:  |
