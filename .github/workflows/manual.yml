@@ -34,7 +34,10 @@ jobs:
         
     - name: testing feature
       run:  |
-        
+        git clone git@github.com:nseang/quest-board.git
+        ls -ltr
+        pwd
+        echo "starting rebase"
         git rebase -s recursive -X theirs master 
         ng build --output-path docs --base-href /quest-board/
         git add .
