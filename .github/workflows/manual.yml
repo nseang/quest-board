@@ -51,7 +51,7 @@ jobs:
         npm install
         echo "starting rebase"
         git rebase -s recursive -X theirs master 
-        ng build --output-path docs --base-href /quest-board/
+        npm run build
         git add .
         git commit -m "new version"
         git push
