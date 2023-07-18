@@ -36,10 +36,14 @@ jobs:
       uses: actions/setup-node@v1
       with: 
           node-version: 16.17.1
-         
+       
+    - uses: actions/checkout@v2
+      with:
+        ssh-key: ${{ secrets.SECRET_KEY }}
+        
     - name: testing feature
       run:  |
-        git clone https://github.com/nseang/quest-board.git
+        git clone git@github.com:nseang/quest-board.git
         ls -ltr
         pwd
         cd "quest-board"
