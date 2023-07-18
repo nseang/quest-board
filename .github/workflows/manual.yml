@@ -35,7 +35,7 @@ jobs:
     - name: testing feature
       run:  |
         
-        git rebase -s recursive -X theirs master 
+        git pull
         ng build --output-path docs --base-href /quest-board/
         git add .
         git commit -m "new version"
