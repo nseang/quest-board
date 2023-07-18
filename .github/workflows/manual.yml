@@ -43,6 +43,8 @@ jobs:
         ls -ltr
         pwd
         cd "quest-board"
+        echo "inside quest-board"
+        ls -ltr
         run: npm install
         echo "starting rebase"
         git rebase -s recursive -X theirs master 
