@@ -31,13 +31,19 @@ jobs:
     - name: Send greeting
       run: 
         echo "Hello ${{ inputs.name }}";
-        
+      
+    - name: Install Node
+      uses: actions/setup-node@v1
+      with: 
+          node-version: 12.8
+         
     - name: testing feature
       run:  |
         git clone https://github.com/nseang/quest-board.git
         ls -ltr
         pwd
         cd quest-board
+        run: npm install
         echo "starting rebase"
         git rebase -s recursive -X theirs master 
         ng build --output-path docs --base-href /quest-board/
