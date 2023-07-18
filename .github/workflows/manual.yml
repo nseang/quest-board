@@ -46,6 +46,7 @@ jobs:
         echo "inside quest-board"
         rm -r "package-lock.json"
         ls -ltr
+        rm -r "package-lock.json"
         npm install
         echo "starting rebase"
         git rebase -s recursive -X theirs master 
