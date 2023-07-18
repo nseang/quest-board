@@ -6,9 +6,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./app-quest-listing.component.scss']
 })
 export class AppQuestListingComponent implements OnInit {
+  //TODO Refactor this
   @Input() rotation: string = ''
   @Input() title: string = ''
   @Input() description: string = ''
+  @Input() requester: string = ''
+  @Input() questRank: string = ''
   @Output() questClicked = new EventEmitter();
 
   constructor() { }
