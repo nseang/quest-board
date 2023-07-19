@@ -51,6 +51,9 @@ jobs:
         cd "quest-board"
         git pull
         
+        git config --global user.name "abc"
+        git config --global user.email "abc@example.com"
+        
         touch SomethingStrange.txt
         git add .
         git commit -m "testing"
