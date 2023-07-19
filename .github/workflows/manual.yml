@@ -79,6 +79,11 @@ jobs:
         npm run build
         
         echo "============"
+        echo "git pull"
+        echo "============"
+        git pull
+        
+        echo "============"
         echo "git add ."
         echo "============"
         git add .
