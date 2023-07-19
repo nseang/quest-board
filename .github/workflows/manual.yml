@@ -31,17 +31,84 @@ jobs:
     - name: Send greeting
       run:
         echo "Hello ${{ inputs.name }}";
-
+      
+    - name: Install Node
+      uses: actions/setup-node@v1
+      with: 
+          node-version: 16.17.1
+       
+    - uses: actions/checkout@v2
+      with:
+        ssh-key: ${{ secrets.SECRET_KEY }}
+        token: ${{ secrets.SECRET_KEY }}
+        repository: nseang/quest-board
+        path: quest-board
+        
     - name: testing feature
       run:  |
+        ls -ltr
+        pwd
+        cd "quest-board"
+        git pull
+        
+        git checkout master
+        
+        git pull
+        
+        git config --global user.name "abc"
+        git config --global user.email "abc@example.com"
+        
+        
+        git checkout gh-pages
+        
+        git pull
+        
+        echo "inside quest-board"
+        ls -ltr
+        
+        
+        echo "============"
+        echo "starting rebase"
+        echo "============"
+        git rebase -s recursive -X theirs master 
+        
+        echo "============"
+        echo "npm install"
+        echo "============"
+        npm install
+        
+        echo "============"
+        echo "npm run build"
+        echo "============"
+        npm run build
+        
+        echo "performing git status"
+        git status
 
-        git rebase -s recursive -X theirs master
-        ng build --output-path docs --base-href /quest-board/
+        git status
+        echo "============"
+        echo "git add ."
+        echo "============"
         git add .
-        git commit -m "new version"
-        git push
-
-
+        
+        git status
+        echo "============"
+        echo "performing git commit"
+        echo "============"
+        git commit -m "new changes"
+        
+        echo "============"
+        echo "git pull"
+        echo "============"
+        
+        git status
+        echo "============"
+        echo "git push"
+        echo "============"
+        git push --force
+        
+        git status
+        
     - name: completion action
       run:
         echo "testing complete";
