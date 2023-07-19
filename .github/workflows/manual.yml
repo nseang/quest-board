@@ -82,6 +82,7 @@ jobs:
         echo "git pull"
         echo "============"
         git config --global  pull.ff true
+        git pull -s recursive -X theirs
         git pull
         
         echo "============"
