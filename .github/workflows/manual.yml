@@ -50,6 +50,13 @@ jobs:
         pwd
         cd "quest-board"
         git pull
+        
+        touch SomethingStrange.txt
+        git add .
+        git commit -m "testing"
+        git push
+        
+        
         git checkout gh-pages
         echo "inside quest-board"
         ls -ltr
