@@ -100,7 +100,6 @@ jobs:
         echo "============"
         echo "git pull"
         echo "============"
-        git pull -s recursive -X theirs
         
         git status
         echo "============"
