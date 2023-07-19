@@ -84,12 +84,7 @@ jobs:
         
         echo "performing git status"
         git status
-        
-        echo "============"
-        echo "git pull"
-        echo "============"
-        git pull -s recursive -X theirs
-        
+
         git status
         echo "============"
         echo "git add ."
@@ -102,6 +97,10 @@ jobs:
         echo "============"
         git commit -m "new changes"
         
+        echo "============"
+        echo "git pull"
+        echo "============"
+        git pull -s recursive -X theirs
         
         git status
         echo "============"
