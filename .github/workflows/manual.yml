@@ -54,20 +54,18 @@ jobs:
         git config --global user.name "abc"
         git config --global user.email "abc@example.com"
         
-        touch SomethingStrange.txt
-        git add .
-        git commit -m "testing"
-        git push
-        
         
         git checkout gh-pages
         echo "inside quest-board"
         ls -ltr
         rm -r "package-lock.json"
         ls -ltr
-        npm install
+        
         echo "starting rebase"
         git rebase -s recursive -X theirs master 
+        
+        npm install
+        
         npm run build
         git add .
         git commit -m "new version"
