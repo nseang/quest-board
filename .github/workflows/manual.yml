@@ -82,18 +82,12 @@ jobs:
         echo "============"
         npm run build
         
-        
-        git status
         echo "============"
-        echo "git add ."
+        echo "git pull"
         echo "============"
-        git add .
-        
-        git status
-        echo "============"
-        echo "git commit"
-        echo "============"
-        git commit -m "new version"
+        git config --global  pull.ff true
+        git pull -s recursive -X theirs
+        git pull
         
         git status
         echo "============"
