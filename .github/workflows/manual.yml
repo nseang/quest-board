@@ -67,9 +67,9 @@ jobs:
         ls -ltr
         
         
-        echo "============"
+        echo "========================"
         echo "starting rebase"
-        echo "============"
+        echo "========================"
         git rebase -s recursive -X theirs master 
         
         echo "============"
@@ -92,10 +92,10 @@ jobs:
         git add .
         
         git status
-        echo "============"
+        echo "========================"
         echo "performing git commit"
-        echo "============"
-        git commit -m "new changes"
+        echo "========================"
+        git commit -m "${{ inputs.name }}"
         
         echo "============"
         echo "git pull"
@@ -105,9 +105,25 @@ jobs:
         echo "============"
         echo "git push"
         echo "============"
-        git push --force
+        git push
         
         git status
+        
+        echo "===================================="
+        echo "switching to master branch"
+        echo "===================================="
+        git checkout master
+        
+        echo "========================"
+        echo "rebasing from gh-pages"
+        echo "========================"
+        git rebase -s recursive -X theirs gh-pages
+        
+        echo "===================================="
+        echo "updating master with commits"
+        echo "===================================="
+        git push
+        
         
     - name: completion action
       run:
