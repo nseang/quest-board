@@ -81,6 +81,7 @@ jobs:
         echo "============"
         echo "git pull"
         echo "============"
+        git config --global  pull.ff true
         git pull
         
         echo "============"
