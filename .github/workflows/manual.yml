@@ -49,7 +49,7 @@ jobs:
         ls -ltr
         pwd
         cd "quest-board"
-        git checkout "gh-page"
+        git checkout "gh-pages"
         echo "inside quest-board"
         ls -ltr
         rm -r "package-lock.json"
