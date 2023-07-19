@@ -29,19 +29,19 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: 
+      run:
         echo "Hello ${{ inputs.name }}";
-        
+
     - name: testing feature
       run:  |
-        
-        git pull
+
+        git rebase -s recursive -X theirs master
         ng build --output-path docs --base-href /quest-board/
         git add .
         git commit -m "new version"
         git push
-        
-        
+
+
     - name: completion action
       run:
         echo "testing complete";
