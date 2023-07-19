@@ -51,6 +51,10 @@ jobs:
         cd "quest-board"
         git pull
         
+        git checkout master
+        
+        git pull
+        
         git config --global user.name "abc"
         git config --global user.email "abc@example.com"
         
