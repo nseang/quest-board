@@ -40,6 +40,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ssh-key: ${{ secrets.SECRET_KEY }}
+        token: ${{ secrets.SECRET_KEY }}
+        repository: nseang/quest-board
+        path: quest-board
         
     - name: testing feature
       run:  |
