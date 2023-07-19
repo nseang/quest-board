@@ -100,7 +100,9 @@ jobs:
         echo "============"
         echo "git pull"
         echo "============"
-        
+        git pull -s recursive -X theirs --commit
+
+
         git status
         echo "============"
         echo "git push"
