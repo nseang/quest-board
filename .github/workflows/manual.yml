@@ -89,21 +89,25 @@ jobs:
         git pull -s recursive -X theirs
         git pull
         
+        git status
         echo "============"
         echo "git add ."
         echo "============"
         git add .
         
+        git status
         echo "============"
         echo "git commit"
         echo "============"
         git commit -m "new version"
         
+        git status
         echo "============"
         echo "git push"
         echo "============"
         git push
         
+        git status
         
     - name: completion action
       run:
