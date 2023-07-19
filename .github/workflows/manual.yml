@@ -103,14 +103,14 @@ jobs:
         git config pull.rebase false
         
         echo "git merge"
-        git merge -s recursive -X theirs --commit
+        git merge -s recursive -X theirs --allow-unrelated-histories
 
 
         git status
         echo "============"
         echo "git push"
         echo "============"
-        git push
+        git push --force
         
         git status
         
