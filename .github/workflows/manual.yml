@@ -63,14 +63,34 @@ jobs:
         echo "inside quest-board"
         ls -ltr
         
+        echo "============"
         echo "starting rebase"
+        echo "============"
         git rebase -s recursive -X theirs master 
         
+        echo "============"
+        echo "npm install"
+        echo "============"
         npm install
         
+        echo "============"
+        echo "npm run build"
+        echo "============"
         npm run build
+        
+        echo "============"
+        echo "git add ."
+        echo "============"
         git add .
+        
+        echo "============"
+        echo "git commit"
+        echo "============"
         git commit -m "new version"
+        
+        echo "============"
+        echo "git push"
+        echo "============"
         git push
         
         
