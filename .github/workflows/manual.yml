@@ -88,7 +88,6 @@ jobs:
         echo "============"
         echo "git pull"
         echo "============"
-        git merge --allow-unrelated-histories
         
         git status
         echo "============"
