@@ -102,7 +102,7 @@ jobs:
         echo "============"
         git config pull.rebase false
         
-        ech0 "git merge"
+        echo "git merge"
         git merge -s recursive -X theirs --commit
 
 
