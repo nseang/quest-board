@@ -60,8 +60,12 @@ jobs:
         
         
         git checkout gh-pages
+        
+        git pull
+        
         echo "inside quest-board"
         ls -ltr
+        
         
         echo "============"
         echo "starting rebase"
