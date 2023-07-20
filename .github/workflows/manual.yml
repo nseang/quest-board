@@ -99,6 +99,8 @@ jobs:
         echo "============"
         echo "git pull"
         echo "============"
+        git config pull.rebase false
+        echo "git merge"
         git merge -s recursive -X theirs --allow-unrelated-histories
         
         
