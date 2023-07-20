@@ -85,7 +85,6 @@ jobs:
         echo "performing git status"
         git status
 
-        git status
         echo "============"
         echo "git add ."
         echo "============"
@@ -100,12 +99,14 @@ jobs:
         echo "============"
         echo "git pull"
         echo "============"
+        git merge -s recursive -X theirs --allow-unrelated-histories
+        
         
         git status
         echo "============"
         echo "git push"
         echo "============"
-        git push
+        git push --force
         
         git status
         
