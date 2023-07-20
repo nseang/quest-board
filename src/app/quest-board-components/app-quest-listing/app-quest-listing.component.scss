@@ -14,6 +14,15 @@
   right: 0;
 }
 
+#accepted {
+  margin: inherit;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-weight: bold;
+  color: darkgreen
+}
+
 #quest-title {
   padding-top: 10px
 }
@@ -29,8 +38,8 @@
   font-style: italic;
   font-size: xxx-large;
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 7%;
+  top: 7%;
 }
 
 .C {
@@ -39,8 +48,8 @@
   font-style: italic;
   font-size: xxx-large;
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 7%;
+  top: 7%;
 }
 
 .B {
@@ -49,8 +58,8 @@
   font-style: italic;
   font-size: xxx-large;
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 7%;
+  top: 7%;
 }
 
 .A {
@@ -59,8 +68,8 @@
   font-style: italic;
   font-size: xxx-large;
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 7%;
+  top: 7%;
 }
 
 .S {
@@ -69,6 +78,6 @@
   font-style: italic;
   font-size: xxx-large;
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 7%;
+  top: 7%;
 }

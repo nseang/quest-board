@@ -12,6 +12,7 @@ export class AppQuestListingComponent implements OnInit {
   @Input() description: string = ''
   @Input() requester: string = ''
   @Input() questRank: string = ''
+  @Input() accepted: boolean = false;
   @Output() questClicked = new EventEmitter();
 
   constructor() { }
