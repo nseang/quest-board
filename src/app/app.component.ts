@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult, FirebaseuiAngularLibraryService } from 'firebaseui-angular';
 import { QuestReceptionistService } from './quest-receptionist.service';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'quest-board';
 
   constructor(
@@ -18,11 +19,22 @@ export class AppComponent {
    }
 
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult) {
-    // TODO
+    this.questService.setUserData()
   }
     
   errorCallback(errorData: FirebaseUISignInFailure) {
     // TODO
   }
-    
+
+  ngOnInit() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        this.questService.setUserData(uid)
+      } else {
+
+      }
+    });
+  }    
 }
