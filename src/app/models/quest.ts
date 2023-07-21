@@ -4,4 +4,10 @@ export class Quest {
   requester!: string;
   questRank!: string | null;
   questID?: string;
+  accepted?: boolean;
+  adventurer?: {
+    uid: string | undefined,
+    email: string | undefined
+  };
+  completed?: boolean;
 }

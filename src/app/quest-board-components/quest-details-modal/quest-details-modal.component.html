@@ -1,12 +1,16 @@
-<div mat-dialog-content>
+<div mat-dialog-content class="quest-details">
   <h3 mat-dialog-title><b>{{data.questData.title}}</b></h3>
   <p>Difficulty: {{data.questData.questRank}}</p>
-  <p>{{data.questData.description}}</p>
+  <p style="white-space: pre-line">{{data.questData.description}}</p>
 
-  <p class="requester">Requester: {{data.questData.requester}}</p>
+  <div class="adventurer-details">
+    <p *ngIf="adventurer">Accepted By: {{adventurer}}</p>
+    <p class="requester">Requester: {{data.questData.requester}}</p>
+  </div>
+
 </div>
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data">Remove</button>
+  <button mat-button (click)="onAcceptQuest()" *ngIf="!data.questData.accepted">Accept</button>
 </div>

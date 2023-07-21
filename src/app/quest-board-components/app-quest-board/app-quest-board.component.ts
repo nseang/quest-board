@@ -46,7 +46,9 @@ export class AppQuestBoardComponent implements OnInit {
           requester: quests.quest.requester,
           rotation: Math.floor(Math.random() * 6) - 3 + "deg",
           questID: quests.questID,
-          questRank: quests.quest.questRank
+          questRank: quests.quest.questRank,
+          accepted: quests.quest.accepted,
+          adventurer: quests.quest.adventurer
         }))
         console.log(this.questList)
       },
@@ -74,11 +76,7 @@ export class AppQuestBoardComponent implements OnInit {
         }
         console.log(newQuest,'new quest')
         this.postQuest(newQuest)
-
       }
-
-
-
     })
   }
 
@@ -89,9 +87,17 @@ export class AppQuestBoardComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        this.removeQuest(result.questData.questID)
+      if(result.questData.accepted) {
+        this.acceptQuest(result.questData.questID, result.questData);
       }
+    })
+  }
+
+  async acceptQuest(questID: string, questDetails: Quest) {
+    await this.questService.getTokenHeader();
+    this.questService.acceptQuest(questID, questDetails).subscribe(data => {
+      console.log(data);
+      this.getQuests();
     })
   }
 
