@@ -10,6 +10,7 @@ export interface NewQuestData {
   questDescription: string;
   questGiver: string;
   questRank: string;
+  adventurersNeeded: number;
 }
 
 @Component({
@@ -23,6 +24,7 @@ export class AppQuestBoardComponent implements OnInit {
   questDescription!: string | null;
   questGiver!: string | null;
   questRank!: string |null;
+  adventurersNeeded!: number | undefined;
   latestQuestID: string | undefined;
 
   constructor(
@@ -67,12 +69,14 @@ export class AppQuestBoardComponent implements OnInit {
       this.questDescription = result.questDescription;
       this.questGiver = result.questGiver;
       this.questRank = result.questRank;
+      this.adventurersNeeded = result.adventurersNeeded;
       if (this.questName && this.questGiver && this.questDescription) {
         let newQuest: Quest = {
           title: this.questName,
           description: this.questDescription,
           requester: this.questGiver,
-          questRank: this.questRank
+          questRank: this.questRank,
+          adventurersNeeded: this.adventurersNeeded
         }
         console.log(newQuest,'new quest')
         this.postQuest(newQuest)
