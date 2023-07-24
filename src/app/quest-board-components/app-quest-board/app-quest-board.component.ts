@@ -24,6 +24,11 @@ export class AppQuestBoardComponent implements OnInit {
   questGiver!: string | null;
   questRank!: string |null;
   latestQuestID: string | undefined;
+  currentUser: {
+    uid: string;
+    email: string
+  } | undefined;
+
 
   constructor(
     private questService: QuestReceptionistService,
@@ -32,6 +37,7 @@ export class AppQuestBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuests();
+    this.currentUser = this.questService.getCurrentUser();
   }
 
   async getQuests() {
@@ -75,7 +81,13 @@ export class AppQuestBoardComponent implements OnInit {
           questRank: this.questRank
         }
         console.log(newQuest,'new quest')
-        this.postQuest(newQuest)
+        console.log(this.currentUser?.uid);
+        if (!this.currentUser) {
+          this.postQuest(newQuest)
+        }
+        else {
+          alert("Sorry, you must be logged in to post a quest.");
+        }
       }
     })
   }
@@ -118,7 +130,7 @@ export class AppQuestBoardComponent implements OnInit {
       this.questGiver = null;
 
       this.getQuests();
-    });
+      });
   }
 
   logOut() {
