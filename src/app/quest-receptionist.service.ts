@@ -23,6 +23,10 @@ export class QuestReceptionistService {
   signOut() {
     return this.afAuth.signOut().then(() => {
       window.alert('Logged Out!');
+      this.currentUser = {
+        uid: '',
+        email: ''
+      }
     })
   }
 

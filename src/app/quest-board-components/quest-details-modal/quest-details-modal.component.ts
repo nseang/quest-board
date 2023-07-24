@@ -10,6 +10,7 @@ import { QuestReceptionistService } from 'src/app/quest-receptionist.service';
 })
 export class QuestDetailsModalComponent implements OnInit {
   adventurer: string | undefined;
+  currentAdventurer: string | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<QuestDetailsModalComponent>,
@@ -19,6 +20,7 @@ export class QuestDetailsModalComponent implements OnInit {
 
   ngOnInit() {
     this.adventurer = this.data.questData.adventurer?.email?.split("@")[0];
+    this.currentAdventurer = this.questService.getCurrentUser().uid;
   }
 
 

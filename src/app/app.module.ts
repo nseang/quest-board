@@ -21,6 +21,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from "@angular/fire/compat/auth";
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 
 
 
@@ -41,7 +42,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppQuestListingComponent,
     NewQuestFormComponent,
     NavBarComponent,
-    QuestDetailsModalComponent
+    QuestDetailsModalComponent,
+    OnlyNumbersDirective
   ],
   imports: [
     BrowserModule,

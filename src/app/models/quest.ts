@@ -3,6 +3,7 @@ export class Quest {
   description!: string;
   requester!: string;
   questRank!: string | null;
+  adventurersNeeded: number | undefined;
   questID?: string;
   accepted?: boolean;
   adventurer?: {
