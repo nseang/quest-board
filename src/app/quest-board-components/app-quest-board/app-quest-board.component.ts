@@ -80,8 +80,7 @@ export class AppQuestBoardComponent implements OnInit {
           requester: this.questGiver,
           questRank: this.questRank
         }
-        console.log(newQuest,'new quest')
-        console.log(this.currentUser?.uid);
+        console.log(newQuest,'new quest');
         if (!this.currentUser) {
           this.postQuest(newQuest)
         }
