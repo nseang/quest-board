@@ -12,5 +12,5 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onAcceptQuest()" *ngIf="!data.questData.accepted && currentAdventurer">Accept</button>
+  <button mat-button (click)="onAcceptQuest()" *ngIf="available">Accept</button>
 </div>

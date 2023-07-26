@@ -64,6 +64,5 @@ export class QuestReceptionistService {
   setUserData(uid?: string) {
     this.currentUser.uid = uid ? uid : firebase.auth().currentUser?.uid as string;
     this.currentUser.email = firebase.auth().currentUser?.email as string;
-    console.log(this.currentUser)
   }
 }

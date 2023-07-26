@@ -10,7 +10,7 @@ export interface NewQuestData {
   questDescription: string;
   questGiver: string;
   questRank: string;
-  adventurersNeeded: number;
+  adventurersNeeded?: number;
 }
 
 @Component({
@@ -55,8 +55,8 @@ export class AppQuestBoardComponent implements OnInit {
           rotation: Math.floor(Math.random() * 6) - 3 + "deg",
           questID: quests.questID,
           questRank: quests.quest.questRank,
-          accepted: quests.quest.accepted,
-          adventurer: quests.quest.adventurer
+          adventurer: quests.quest.adventurer,
+          adventurersNeeded: quests.quest.adventurersNeeded
         }))
         console.log(this.questList)
       },
@@ -85,12 +85,7 @@ export class AppQuestBoardComponent implements OnInit {
           adventurersNeeded: this.adventurersNeeded
         }
         console.log(newQuest,'new quest');
-        if (!this.currentUser) {
-          this.postQuest(newQuest)
-        }
-        else {
-          alert("Sorry, you must be logged in to post a quest.");
-        }
+        this.postQuest(newQuest)
       }
     })
   }
@@ -102,7 +97,7 @@ export class AppQuestBoardComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.questData.accepted) {
+      if(result.questData.adventurer) {
         this.acceptQuest(result.questData.questID, result.questData);
       }
     })
@@ -111,14 +106,12 @@ export class AppQuestBoardComponent implements OnInit {
   async acceptQuest(questID: string, questDetails: Quest) {
     await this.questService.getTokenHeader();
     this.questService.acceptQuest(questID, questDetails).subscribe(data => {
-      console.log(data);
       this.getQuests();
     })
   }
 
   removeQuest(questID: string) {
     this.questService.removeQuest(questID).subscribe(data => {
-      console.log(data);
       this.getQuests();
     })
   }
