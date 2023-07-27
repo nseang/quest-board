@@ -59,6 +59,7 @@ export class QuestDetailsModalComponent implements OnInit {
     if(!this.data.questData.adventurer) {
       this.available = true;
     }
+
   }
 
 }
