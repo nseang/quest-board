@@ -1,4 +1,4 @@
-<div class="board-actions">
+<div *ngIf="currentUser?.email" class="board-actions">
   <button class="quest-action" mat-raised-button color="primary" (click)="openNewQuestDialog()">Post new Quest</button>
 
   <button mat-raised-button (click)="logOut()">sign out</button>
@@ -15,7 +15,8 @@
     [description] = quest.description
     [requester] = quest.requester
     [questRank] = quest.questRank
-    [accepted] = quest.accepted
+    [adventurers] = quest.adventurer
+    [adventurersNeeded] = quest.adventurersNeeded
     (questClicked)="openQuestDialog(quest)">
    </app-quest-listing>
   </div>

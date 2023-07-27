@@ -51,26 +51,19 @@ jobs:
         cd "quest-board"
         git pull
         
-        git checkout master
+        git checkout gh-pages
         
         git pull
         
         git config --global user.name "abc"
         git config --global user.email "abc@example.com"
         
-        
-        git checkout gh-pages
-        
-        git pull
+
         
         echo "inside quest-board"
         ls -ltr
         
         
-        echo "========================"
-        echo "starting rebase"
-        echo "========================"
-        git rebase -s recursive -X theirs master 
         
         echo "============"
         echo "npm install"
@@ -96,36 +89,21 @@ jobs:
         echo "========================"
         git commit -m "${{ inputs.name }}"
         
-        echo "============"
-        echo "git pull"
-        echo "============"
-        git config pull.rebase false
-        echo "git merge"
-        git merge -s recursive -X theirs --allow-unrelated-histories
-        
-        
+        echo "performing git status"
+
         git status
         echo "============"
         echo "git push"
         echo "============"
-        git push --force
+        git push 
+
         
+        
+        echo "performing git status"
         git status
         
-        echo "===================================="
-        echo "switching to master branch"
-        echo "===================================="
-        git checkout master
+
         
-        echo "========================"
-        echo "rebasing from gh-pages"
-        echo "========================"
-        git rebase -s recursive -X theirs gh-pages
-        
-        echo "===================================="
-        echo "updating master with commits"
-        echo "===================================="
-        git push
         
         
     - name: completion action

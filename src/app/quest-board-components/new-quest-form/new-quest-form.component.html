@@ -2,12 +2,12 @@
 <div mat-dialog-content>
 
 <div>
-  <mat-form-field id="quest-title">
+  <mat-form-field class="quest-form-top">
     <mat-label>Quest Name</mat-label>
     <input matInput placeholder="Quest Name" [(ngModel)]="data.questName">
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field  class="quest-form-top">
     <mat-label>Difficulty</mat-label>
     <select matNativeControl [(ngModel)]="data.questRank">
       <option value="D">D</option>
@@ -15,7 +15,13 @@
       <option value="B">B</option>
       <option value="A">A</option>
       <option value="S">S</option>
+      <option value="unknown">?</option>
     </select>
+  </mat-form-field>
+
+  <mat-form-field class="quest-form-top">
+    <mat-label>Adventurers Needed</mat-label>
+    <input matInput class="form-control" [(ngModel)]="data.adventurersNeeded" appOnlyNumbers>
   </mat-form-field>
 </div>
 

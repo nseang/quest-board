@@ -32,52 +32,43 @@
   padding: 10px;
 }
 
-.D {
-  color: blue;
+@mixin quest-rank {
   font-weight: bold;
   font-style: italic;
   font-size: xxx-large;
   position: absolute;
   left: 7%;
   top: 7%;
+}
+
+.D {
+  color: blue;
+  @include quest-rank;
 }
 
 .C {
   color: green;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 7%;
-  top: 7%;
+  @include quest-rank;
 }
 
 .B {
   color: #ffc107;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 7%;
-  top: 7%;
+  @include quest-rank;
 }
 
 .A {
   color: darkorange;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 7%;
-  top: 7%;
+  @include quest-rank;
 }
 
 .S {
   color: red;
-  font-weight: bold;
-  font-style: italic;
-  font-size: xxx-large;
-  position: absolute;
-  left: 7%;
-  top: 7%;
+  @include quest-rank;
+
 }
+
+.unknown {
+  color: purple;
+  @include quest-rank;
+}
+

@@ -10,6 +10,7 @@ export interface NewQuestData {
   questDescription: string;
   questGiver: string;
   questRank: string;
+  adventurersNeeded?: number;
 }
 
 @Component({
@@ -23,7 +24,13 @@ export class AppQuestBoardComponent implements OnInit {
   questDescription!: string | null;
   questGiver!: string | null;
   questRank!: string |null;
+  adventurersNeeded!: number | undefined;
   latestQuestID: string | undefined;
+  currentUser: {
+    uid: string;
+    email: string
+  } | undefined;
+
 
   constructor(
     private questService: QuestReceptionistService,
@@ -32,6 +39,7 @@ export class AppQuestBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuests();
+    this.currentUser = this.questService.getCurrentUser();
   }
 
   async getQuests() {
@@ -47,8 +55,8 @@ export class AppQuestBoardComponent implements OnInit {
           rotation: Math.floor(Math.random() * 6) - 3 + "deg",
           questID: quests.questID,
           questRank: quests.quest.questRank,
-          accepted: quests.quest.accepted,
-          adventurer: quests.quest.adventurer
+          adventurer: quests.quest.adventurer,
+          adventurersNeeded: quests.quest.adventurersNeeded
         }))
         console.log(this.questList)
       },
@@ -67,14 +75,16 @@ export class AppQuestBoardComponent implements OnInit {
       this.questDescription = result.questDescription;
       this.questGiver = result.questGiver;
       this.questRank = result.questRank;
+      this.adventurersNeeded = result.adventurersNeeded;
       if (this.questName && this.questGiver && this.questDescription) {
         let newQuest: Quest = {
           title: this.questName,
           description: this.questDescription,
           requester: this.questGiver,
-          questRank: this.questRank
+          questRank: this.questRank,
+          adventurersNeeded: this.adventurersNeeded
         }
-        console.log(newQuest,'new quest')
+        console.log(newQuest,'new quest');
         this.postQuest(newQuest)
       }
     })
@@ -87,7 +97,7 @@ export class AppQuestBoardComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.questData.accepted) {
+      if(result.questData.adventurer) {
         this.acceptQuest(result.questData.questID, result.questData);
       }
     })
@@ -96,14 +106,12 @@ export class AppQuestBoardComponent implements OnInit {
   async acceptQuest(questID: string, questDetails: Quest) {
     await this.questService.getTokenHeader();
     this.questService.acceptQuest(questID, questDetails).subscribe(data => {
-      console.log(data);
       this.getQuests();
     })
   }
 
   removeQuest(questID: string) {
     this.questService.removeQuest(questID).subscribe(data => {
-      console.log(data);
       this.getQuests();
     })
   }
@@ -118,7 +126,7 @@ export class AppQuestBoardComponent implements OnInit {
       this.questGiver = null;
 
       this.getQuests();
-    });
+      });
   }
 
   logOut() {
