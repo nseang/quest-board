@@ -46,8 +46,9 @@ export class QuestDetailsModalComponent implements OnInit {
 
   checkAvailablity() {
     if(this.data.questData.adventurersNeeded && this.data.questData.adventurer) {
-      if(this.data.questData.adventurer.length < this.data.questData.adventurersNeeded) {
-        this.available = true;
+      if(this.data.questData.adventurer.length >= this.data.questData.adventurersNeeded) {
+        this.available = false;
+        return;
       }
       if(this.currentAdventurer) {
         let accepted = this.data.questData.adventurer.find(adventurer => adventurer.uid === this.currentAdventurer)
@@ -56,7 +57,7 @@ export class QuestDetailsModalComponent implements OnInit {
 
     }
 
-    if(!this.data.questData.adventurer) {
+    if(!this.data.questData.adventurer && this.currentAdventurer) {
       this.available = true;
     }
 
