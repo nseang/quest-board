@@ -9,7 +9,9 @@ import { QuestReceptionistService } from 'src/app/quest-receptionist.service';
   styleUrls: ['./quest-details-modal.component.scss']
 })
 export class QuestDetailsModalComponent implements OnInit {
-  adventurer: string | undefined;
+  adventurer: string = "";
+  currentAdventurer: string | undefined;
+  available: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<QuestDetailsModalComponent>,
@@ -18,7 +20,9 @@ export class QuestDetailsModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.adventurer = this.data.questData.adventurer?.email?.split("@")[0];
+    this.displayAdventurers();
+    this.currentAdventurer = this.questService.getCurrentUser().uid;
+    this.checkAvailablity();
   }
 
 
@@ -27,9 +31,34 @@ export class QuestDetailsModalComponent implements OnInit {
   }
 
   onAcceptQuest(): void {
-    this.data.questData.accepted = true;
-    this.data.questData.adventurer = this.questService.getCurrentUser();
+    if(!this.data.questData.adventurer) {
+      this.data.questData.adventurer = [];
+    }
+    this.data.questData.adventurer?.push(this.questService.getCurrentUser());
     this.dialogRef.close(this.data) 
+  }
+
+  displayAdventurers() {
+    this.data.questData.adventurer?.forEach(adventurer => {
+      this.adventurer = `${this.adventurer} ${adventurer.email?.split("@")[0]} |`
+    })
+  }
+
+  checkAvailablity() {
+    if(this.data.questData.adventurersNeeded && this.data.questData.adventurer) {
+      if(this.data.questData.adventurer.length < this.data.questData.adventurersNeeded) {
+        this.available = true;
+      }
+      if(this.currentAdventurer) {
+        let accepted = this.data.questData.adventurer.find(adventurer => adventurer.uid === this.currentAdventurer)
+        this.available = accepted ? false : true;
+      }
+
+    }
+
+    if(!this.data.questData.adventurer) {
+      this.available = true;
+    }
   }
 
 }

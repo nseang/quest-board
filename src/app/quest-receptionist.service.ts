@@ -23,6 +23,10 @@ export class QuestReceptionistService {
   signOut() {
     return this.afAuth.signOut().then(() => {
       window.alert('Logged Out!');
+      this.currentUser = {
+        uid: '',
+        email: ''
+      }
     })
   }
 
@@ -60,6 +64,5 @@ export class QuestReceptionistService {
   setUserData(uid?: string) {
     this.currentUser.uid = uid ? uid : firebase.auth().currentUser?.uid as string;
     this.currentUser.email = firebase.auth().currentUser?.email as string;
-    console.log(this.currentUser)
   }
 }
