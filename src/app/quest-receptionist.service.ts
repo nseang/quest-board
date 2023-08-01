@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Quest } from './models/quest';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {firebase} from 'firebaseui-angular';
-
+import { firebase } from 'firebaseui-angular';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +15,9 @@ export class QuestReceptionistService {
     uid: '',
     email: ''
   }
+  currentBoard = "defaultBoard";
+  private _questSource = new BehaviorSubject<string>('defaultBoard')
+  questItem$ = this._questSource.asObservable();
   constructor(
     private http: HttpClient,
     public afAuth: AngularFireAuth // Inject Firebase auth service
@@ -30,23 +33,28 @@ export class QuestReceptionistService {
     })
   }
 
+  getQuestBoards() {
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/QuestBoards.json`;
+    return this.http.get<any>(url);
+  }
+
   getQuests() {
-    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/testQuests.json`;
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/${this.currentBoard}.json`;
     return this.http.get<any>(url);
   }
 
   postQuest(questDetails: Quest) {
-    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/testQuests.json?auth=${this.headerToken}`;
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/${this.currentBoard}.json?auth=${this.headerToken}`;
     return this.http.post<any>(url, questDetails)
   }
 
   removeQuest(questID: string) {
-    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/testQuests/${questID}.json`
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/${this.currentBoard}/${questID}.json`
     return this.http.delete<any>(url);
   }
 
   acceptQuest(questID: string, questDetails: Quest) {
-    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/testQuests/${questID}.json?auth=${this.headerToken}`;
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/${this.currentBoard}/${questID}.json?auth=${this.headerToken}`;
     return this.http.put<any>(url, questDetails);
   }
 
@@ -54,6 +62,11 @@ export class QuestReceptionistService {
     return firebase.auth().currentUser?.getIdToken().then(token => {
       this.headerToken = token;
     });
+  }
+
+  setCurrentBoard(chosenBoard: string) {
+    this.currentBoard = chosenBoard;
+    this._questSource.next(chosenBoard);
   }
 
   getCurrentUser() {

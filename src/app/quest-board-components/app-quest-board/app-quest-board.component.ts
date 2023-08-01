@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Quest } from 'src/app/models/quest';
 import { QuestReceptionistService } from 'src/app/quest-receptionist.service';
 import { NewQuestFormComponent } from '../new-quest-form/new-quest-form.component';
 import { QuestDetailsModalComponent } from '../quest-details-modal/quest-details-modal.component';
+import { Subscription } from 'rxjs';
 
 export interface NewQuestData {
   questName: string;
@@ -18,7 +19,7 @@ export interface NewQuestData {
   templateUrl: './app-quest-board.component.html',
   styleUrls: ['./app-quest-board.component.scss']
 })
-export class AppQuestBoardComponent implements OnInit {
+export class AppQuestBoardComponent implements OnInit, OnDestroy {
   questList: any;
   questName!: string | null;
   questDescription!: string | null;
@@ -30,6 +31,7 @@ export class AppQuestBoardComponent implements OnInit {
     uid: string;
     email: string
   } | undefined;
+  boardSubscription!: Subscription;
 
 
   constructor(
@@ -38,8 +40,15 @@ export class AppQuestBoardComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.boardSubscription = this.questService.questItem$.subscribe(board => {
+      this.getQuests();
+    })
     this.getQuests();
     this.currentUser = this.questService.getCurrentUser();
+  }
+
+  ngOnDestroy() {
+    this.boardSubscription.unsubscribe();
   }
 
   async getQuests() {
