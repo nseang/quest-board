@@ -4,7 +4,7 @@
 <div>
   <mat-form-field class="quest-form-top">
     <mat-label>Quest Name</mat-label>
-    <input matInput placeholder="Quest Name" [(ngModel)]="data.questName">
+    <input matInput placeholder="Quest Name" [(ngModel)]="data.questName" maxlength="25">
   </mat-form-field>
 
   <mat-form-field  class="quest-form-top">
@@ -21,18 +21,18 @@
 
   <mat-form-field class="quest-form-top">
     <mat-label>Adventurers Needed</mat-label>
-    <input matInput class="form-control" [(ngModel)]="data.adventurersNeeded" appOnlyNumbers>
+    <input matInput class="form-control" placeholder="#" [(ngModel)]="data.adventurersNeeded" appOnlyNumbers maxlength="3">
   </mat-form-field>
 </div>
 
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Description" [(ngModel)]="data.questDescription"></textarea>
+    <textarea matInput placeholder="Description (Mac Characters: 500)" [(ngModel)]="data.questDescription" maxlength="500"></textarea>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Quest Giver</mat-label>
-    <input matInput placeholder="Quest Giver" [(ngModel)]="data.questGiver">
+    <input matInput placeholder="Quest Giver" [(ngModel)]="data.questGiver" maxlength="20">
   </mat-form-field>
 
 </div>
