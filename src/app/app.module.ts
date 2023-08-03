@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserFormComponent } from './quest-board-components/user-form/user-form.component';
 
 
 
@@ -50,7 +51,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NavBarComponent,
     QuestDetailsModalComponent,
     OnlyNumbersDirective,
-    SideNavComponent
+    SideNavComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

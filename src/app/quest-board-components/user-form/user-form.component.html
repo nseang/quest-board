@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Adventurer Registration</h1>
+
+<div>
+  <mat-form-field class="quest-form-top">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" [(ngModel)]="data.name" maxlength="25">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data">Submit</button>
+</div>
