@@ -1,5 +1,6 @@
 <div *ngIf="currentUser?.email" class="board-actions">
   <button class="quest-action" mat-raised-button color="primary" (click)="openNewQuestDialog()">Post new Quest</button>
+  <button *ngIf="!currentUser?.name" class="quest-action" mat-raised-button color="primary" (click)="openUserDialog()">Set User Name</button>
 
   <button mat-raised-button (click)="logOut()">sign out</button>
 </div>
