@@ -4,6 +4,7 @@ import { Quest } from './models/quest';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { firebase } from 'firebaseui-angular';
 import { BehaviorSubject } from 'rxjs';
+import { Adventurer } from './models/adventurer';
 
 
 @Injectable({
@@ -11,13 +12,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class QuestReceptionistService {
   headerToken!: string;
-  currentUser = {
+  currentUser: Adventurer = {
     uid: '',
-    email: ''
+    email: '',
+    name: ''
   }
   currentBoard = "defaultBoard";
-  private _questSource = new BehaviorSubject<string>('defaultBoard')
+  // currentBoard = "testBoard";
+  private _questSource = new BehaviorSubject<string>('defaultBoard');
   questItem$ = this._questSource.asObservable();
+  private _currentUser = new BehaviorSubject<Adventurer>({uid: this.currentUser.uid, email: this.currentUser.email, name: this.currentUser.name});
+  currentUser$ = this._questSource.asObservable();
   constructor(
     private http: HttpClient,
     public afAuth: AngularFireAuth // Inject Firebase auth service
@@ -28,7 +33,8 @@ export class QuestReceptionistService {
       window.alert('Logged Out!');
       this.currentUser = {
         uid: '',
-        email: ''
+        email: '',
+        name: ''
       }
     })
   }
@@ -58,6 +64,23 @@ export class QuestReceptionistService {
     return this.http.put<any>(url, questDetails);
   }
 
+  setAdventurerData(adventurerName: string) {
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/Users/${this.currentUser.uid}.json?auth=${this.headerToken}`;
+    let adventurerData = {
+      name: adventurerName
+    }
+    return this.http.put<any>(url, adventurerData);
+  }
+
+  getAdventurerData() {
+    let url = `https://quest-board-b16-default-rtdb.firebaseio.com/Users/${this.currentUser.uid}.json?auth=${this.headerToken}`;
+    this.http.get(url).subscribe((data: any) => {
+      console.log(data);
+      this.currentUser.name = data.name;
+      this._currentUser.next(this.currentUser);
+    })
+  }
+
   getTokenHeader() {
     return firebase.auth().currentUser?.getIdToken().then(token => {
       this.headerToken = token;
@@ -73,9 +96,10 @@ export class QuestReceptionistService {
     return this.currentUser;
   }
 
-  //Prototyping
-  setUserData(uid?: string) {
+  async setUserData(uid?: string) {
+    await this.getTokenHeader();
     this.currentUser.uid = uid ? uid : firebase.auth().currentUser?.uid as string;
     this.currentUser.email = firebase.auth().currentUser?.email as string;
+    this.getAdventurerData();
   }
 }

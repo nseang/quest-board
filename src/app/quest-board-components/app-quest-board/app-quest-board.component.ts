@@ -5,6 +5,8 @@ import { QuestReceptionistService } from 'src/app/quest-receptionist.service';
 import { NewQuestFormComponent } from '../new-quest-form/new-quest-form.component';
 import { QuestDetailsModalComponent } from '../quest-details-modal/quest-details-modal.component';
 import { Subscription } from 'rxjs';
+import { UserFormComponent } from '../user-form/user-form.component';
+import { Adventurer } from 'src/app/models/adventurer';
 
 export interface NewQuestData {
   questName: string;
@@ -23,15 +25,12 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
   questList: any;
   questName!: string | null;
   questDescription!: string | null;
-  questGiver!: string | null;
   questRank!: string |null;
   adventurersNeeded!: number | undefined;
   latestQuestID: string | undefined;
-  currentUser: {
-    uid: string;
-    email: string
-  } | undefined;
+  currentUser: Adventurer | undefined;
   boardSubscription!: Subscription;
+  adventurerSubscription!: Subscription;
 
 
   constructor(
@@ -43,8 +42,10 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
     this.boardSubscription = this.questService.questItem$.subscribe(board => {
       this.getQuests();
     })
-    this.getQuests();
-    this.currentUser = this.questService.getCurrentUser();
+    this.adventurerSubscription = this.questService.currentUser$.subscribe(adventurer => {
+      this.currentUser = this.questService.getCurrentUser();
+    })
+
   }
 
   ngOnDestroy() {
@@ -75,21 +76,20 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
 
   openNewQuestDialog(): void {
     const dialogRef = this.dialog.open(NewQuestFormComponent, {
-      data: {questName: this.questName, questDescription: this.questDescription, questGiver: this.questGiver, questRank: this.questRank},
+      data: {questName: this.questName, questDescription: this.questDescription, questRank: this.questRank},
       width: '60%'
-    })
+    });
     
     dialogRef.afterClosed().subscribe(result => {
       this.questName = result.questName;
       this.questDescription = result.questDescription;
-      this.questGiver = result.questGiver;
       this.questRank = result.questRank;
       this.adventurersNeeded = result.adventurersNeeded;
-      if (this.questName && this.questGiver && this.questDescription) {
+      if (this.questName && this.questDescription) {
         let newQuest: Quest = {
           title: this.questName,
           description: this.questDescription,
-          requester: this.questGiver,
+          requester: this.currentUser?.name ? this.currentUser.name : this.currentUser?.email?.split("@")[0],
           questRank: this.questRank,
           adventurersNeeded: this.adventurersNeeded
         }
@@ -97,6 +97,21 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
         this.postQuest(newQuest)
       }
     })
+  }
+
+  openUserDialog(): void {
+    const dialogRef = this.dialog.open(UserFormComponent, {
+      data: {name: this.currentUser?.name},
+      width: '60%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.name) {
+        this.registerAdventurer(result.name);
+      }
+    })
+
+
   }
 
   //TODO create questData interface
@@ -125,6 +140,13 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
     })
   }
 
+  async registerAdventurer(name: string) {
+    await this.questService.getTokenHeader();
+    this.questService.setAdventurerData(name).subscribe(data => {
+      this.questService.getAdventurerData();  
+    });
+  }
+
   
   async postQuest(quest: Quest) {
     await this.questService.getTokenHeader();
@@ -132,7 +154,6 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
       this.latestQuestID = data.id;
       this.questName = null;
       this.questDescription = null;
-      this.questGiver = null;
 
       this.getQuests();
       });

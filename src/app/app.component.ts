@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        this.questService.setUserData(uid)
+        this.questService.setUserData(uid);
       } else {
 
       }
