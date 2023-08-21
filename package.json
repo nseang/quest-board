@@ -27,6 +27,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "bootstrap": "^5.3.0",
+    "date-fns": "^2.30.0",
     "firebase": "^9.22.2",
     "firebaseui": "^6.0.2",
     "firebaseui-angular": "^6.1.3",

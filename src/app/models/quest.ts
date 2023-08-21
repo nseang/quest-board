@@ -9,5 +9,7 @@ export class Quest {
     uid: string | undefined,
     email: string | undefined
   }[];
+  datePosted: Date | undefined;
+  deadline?: Date;
   completed?: boolean;
 }

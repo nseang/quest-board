@@ -1,13 +1,19 @@
 <div mat-dialog-content class="quest-details">
-  <h3 mat-dialog-title><b>{{data.questData.title}}</b></h3>
-  <p>Difficulty: {{data.questData.questRank}}</p>
-  <p style="white-space: pre-line">{{data.questData.description}}</p>
+  <header>
+    <h3 mat-dialog-title><b>{{data.questData.title}}</b></h3>
+  </header>
 
-  <div class="adventurer-details">
-    <p *ngIf="adventurer">Accepted By: {{adventurer}}</p>
-    <p class="requester">Requester: {{data.questData.requester}}</p>
+  <div>
+    <span class="post-date">Posted: {{data.questData.datePosted | date}}</span>
+    <p>Difficulty: {{data.questData.questRank}}</p>
+    <p style="white-space: pre-line">{{data.questData.description}}</p>
   </div>
 
+  <div class="adventurer-details">
+    <p class="adventurer" *ngIf="adventurer">Accepted By: {{adventurer}}</p>
+    <p *ngIf="data.questData.deadline">Deadline: {{data.questData.deadline | date}}</p>
+    <p class="requester">Requester: {{data.questData.requester}}</p>
+  </div>
 </div>
 
 <div mat-dialog-actions>
