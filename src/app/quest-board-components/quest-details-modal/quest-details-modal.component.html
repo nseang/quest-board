@@ -4,7 +4,7 @@
   </header>
 
   <div>
-    <span class="post-date">Posted: {{data.questData.datePosted | date}}</span>
+    <span *ngIf="data.questData.datePosted" class="post-date">Posted: {{data.questData.datePosted | date}}</span>
     <p>Difficulty: {{data.questData.questRank}}</p>
     <p style="white-space: pre-line">{{data.questData.description}}</p>
   </div>
