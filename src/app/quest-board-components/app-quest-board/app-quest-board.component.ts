@@ -14,6 +14,7 @@ export interface NewQuestData {
   questGiver: string;
   questRank: string;
   adventurersNeeded?: number;
+  deadline?: Date
 }
 
 @Component({
@@ -66,7 +67,9 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
           questID: quests.questID,
           questRank: quests.quest.questRank,
           adventurer: quests.quest.adventurer,
-          adventurersNeeded: quests.quest.adventurersNeeded
+          adventurersNeeded: quests.quest.adventurersNeeded,
+          datePosted: quests.quest.datePosted,
+          deadline: quests.quest.deadline
         }))
         console.log(this.questList)
       },
@@ -91,9 +94,11 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
           description: this.questDescription,
           requester: this.currentUser?.name ? this.currentUser.name : this.currentUser?.email?.split("@")[0],
           questRank: this.questRank,
-          adventurersNeeded: this.adventurersNeeded
+          adventurersNeeded: this.adventurersNeeded,
+          datePosted: new Date(),
+          deadline: result.deadline
         }
-        console.log(newQuest,'new quest');
+        console.log('new quest',newQuest);
         this.postQuest(newQuest)
       }
     })
