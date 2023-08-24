@@ -4,7 +4,7 @@
 <div>
   <mat-form-field class="quest-form-top">
     <mat-label>Quest Name</mat-label>
-    <input matInput placeholder="Quest Name" [(ngModel)]="data.questName" maxlength="25">
+    <input matInput placeholder="Quest Name" [(ngModel)]="data.questName" maxlength="25" (input)="checkValidation()">
   </mat-form-field>
 
   <mat-form-field  class="quest-form-top">
@@ -20,6 +20,18 @@
   </mat-form-field>
 
   <mat-form-field class="quest-form-top">
+    <input matInput [matDatepicker]="picker"
+     (dateInput)="addEvent( $event)"
+     (dateChange)="addEvent( $event)"
+     placeholder="Deadline"
+     [(ngModel)]="data.deadline">
+    <mat-hint>MM/DD/YYYY <p *ngIf="invalidDeadline" class="date-error">Deadline cannot be before current date</p></mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  
+
+  <mat-form-field class="quest-form-top">
     <mat-label>Adventurers Needed</mat-label>
     <input matInput class="form-control" placeholder="#" [(ngModel)]="data.adventurersNeeded" appOnlyNumbers maxlength="3">
   </mat-form-field>
@@ -27,11 +39,12 @@
 
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Description (Max Characters: 500)" [(ngModel)]="data.questDescription" maxlength="500"></textarea>
+    <textarea matInput placeholder="Description (Max Characters: 500)" [(ngModel)]="data.questDescription" maxlength="500" (input)="checkValidation()"></textarea>
   </mat-form-field>
 
 </div>
+
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data">Submit</button>
+  <button mat-button [mat-dialog-close]="data" [disabled]="!valid">Submit</button>
 </div>
