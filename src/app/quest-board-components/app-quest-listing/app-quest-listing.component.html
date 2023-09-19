@@ -1,7 +1,8 @@
-<div class="quest-listing" [ngStyle]="{'transform': 'rotate('+rotation+')'}" (click)="openDialog()">
-  <h3 id="quest-title"><b>{{title}}</b></h3>
-  <span [ngClass]="[questRank] ? questRank : 'D'">{{displayRank}}</span>
-  <p id="quest-description">{{description}}</p>
-  <p id="accepted" *ngIf="adventurers">Accepted {{accepted}}</p>
-  <p id="requester">- {{requester}}</p>
+<div class="quest-listing" [ngStyle]="{'transform': 'rotate('+quest.rotation+')'}" (click)="openDialog()">
+  <h3 id="quest-title"><b>{{quest.title}}</b></h3>
+  <span [ngClass]="[quest.questRank] ? quest.questRank : 'D'">{{displayRank}}</span>
+  <p id="quest-description">{{quest.description}}</p>
+  <p id="accepted" *ngIf="quest.adventurer && !isExpired">Accepted {{accepted}}</p>
+  <p id="expired" *ngIf="isExpired">Expired</p>
+  <p id="requester">- {{quest.requester}}</p>
 </div>

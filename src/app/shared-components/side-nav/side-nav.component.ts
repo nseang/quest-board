@@ -13,6 +13,7 @@ export class SideNavComponent implements OnInit {
   navMode: MatDrawerMode = "over"
   menuBars = faBars
   availableBoards!: QuestBoards[];
+  currentBoard: QuestBoards | undefined;
 
   constructor(
     private questService: QuestReceptionistService
@@ -29,12 +30,15 @@ export class SideNavComponent implements OnInit {
       this.availableBoards = questBoards.map((boards: {boardID: string; board: any}) => ({
         code: boards.board.code,
         value: boards.board.value
-      }))
-    })
+      }));
+      let board = this.questService.getCurrentBoard();
+      this.currentBoard = this.availableBoards.find((boards) => boards.code === board)
+    });
   };
 
-  setCurrentBoard(board: string){
-    this.questService.setCurrentBoard(board);
+  setCurrentBoard(board: QuestBoards){
+    this.currentBoard = board;
+    this.questService.setCurrentBoard(board.code);
   }
 
 }
