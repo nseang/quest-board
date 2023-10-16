@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { isBefore } from 'date-fns';
 import { Quest } from 'src/app/models/quest';
 import { QuestReceptionistService } from 'src/app/quest-receptionist.service';
 
@@ -61,6 +62,14 @@ export class QuestDetailsModalComponent implements OnInit {
       this.available = true;
     }
 
+    this.checkExpiration();
+
+  }
+
+  checkExpiration() {
+    if(this.data.questData.deadline && isBefore(Date.parse(this.data.questData.deadline as string), new Date)) {
+      this.available = false;
+    }
   }
 
 }
