@@ -5,19 +5,14 @@
   <button mat-raised-button (click)="logOut()">sign out</button>
 </div>
 
+<h1 class="quest-board-title">{{currentBoard?.value}}</h1>
 
 <div class="quest-board">
 
  <div class="row">
   <div class="col" *ngFor="let quest of questList">
    <app-quest-listing
-    [rotation] = quest.rotation
-    [title] = quest.title
-    [description] = quest.description
-    [requester] = quest.requester
-    [questRank] = quest.questRank
-    [adventurers] = quest.adventurer
-    [adventurersNeeded] = quest.adventurersNeeded
+    [quest] = quest
     (questClicked)="openQuestDialog(quest)">
    </app-quest-listing>
   </div>

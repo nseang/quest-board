@@ -75,7 +75,6 @@ export class QuestReceptionistService {
   getAdventurerData() {
     let url = `https://quest-board-b16-default-rtdb.firebaseio.com/Users/${this.currentUser.uid}.json?auth=${this.headerToken}`;
     this.http.get(url).subscribe((data: any) => {
-      console.log(data);
       this.currentUser.name = data.name;
       this._currentUser.next(this.currentUser);
     })
@@ -90,6 +89,10 @@ export class QuestReceptionistService {
   setCurrentBoard(chosenBoard: string) {
     this.currentBoard = chosenBoard;
     this._questSource.next(chosenBoard);
+  }
+
+  getCurrentBoard() {
+    return this.currentBoard;
   }
 
   getCurrentUser() {

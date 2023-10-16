@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { isBefore } from 'date-fns';
+import { Quest } from 'src/app/models/quest';
 
 const questRanks = [
   {code: "D" , value: "D"},
@@ -15,29 +17,30 @@ const questRanks = [
   styleUrls: ['./app-quest-listing.component.scss']
 })
 export class AppQuestListingComponent implements OnInit {
-  //TODO Refactor this
-  @Input() rotation: string = ''
-  @Input() title: string = ''
-  @Input() description: string = ''
-  @Input() requester: string = ''
-  @Input() questRank: string = ''
-  @Input() adventurers: any[] = [];
-  @Input() adventurersNeeded!: number;
+  @Input() quest!: Quest;
   @Output() questClicked = new EventEmitter();
 
   displayRank: string| undefined;
   accepted: string = "";
+  isExpired: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.displayRank = questRanks.find(rank => rank.code === this.questRank)?.value;
+    this.displayRank = questRanks.find(rank => rank.code === this.quest.questRank)?.value;
     this.displayAcceptedCount();
+    this.checkExpiration();
   }
 
   displayAcceptedCount() {
-    if(this.adventurers && this.adventurersNeeded > 1) {
-      this.accepted = `${this.adventurers.length}/${this.adventurersNeeded}`
+    if(this.quest.adventurer && this.quest.adventurersNeeded && this.quest.adventurersNeeded > 1) {
+      this.accepted = `${this.quest.adventurer.length}/${this.quest.adventurersNeeded}`
+    }
+  }
+
+  checkExpiration() {
+    if(this.quest.deadline && isBefore(Date.parse(this.quest.deadline as string), new Date)) {
+      this.isExpired = true;
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Quest } from 'src/app/models/quest';
 import { QuestReceptionistService } from 'src/app/quest-receptionist.service';
@@ -7,6 +7,7 @@ import { QuestDetailsModalComponent } from '../quest-details-modal/quest-details
 import { Subscription } from 'rxjs';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { Adventurer } from 'src/app/models/adventurer';
+import { QuestBoards } from 'src/app/models/questBoards';
 
 export interface NewQuestData {
   questName: string;
@@ -14,6 +15,7 @@ export interface NewQuestData {
   questGiver: string;
   questRank: string;
   adventurersNeeded?: number;
+  deadline?: Date
 }
 
 @Component({
@@ -22,7 +24,8 @@ export interface NewQuestData {
   styleUrls: ['./app-quest-board.component.scss']
 })
 export class AppQuestBoardComponent implements OnInit, OnDestroy {
-  questList: any;
+  @Input() currentBoard?: QuestBoards;
+  questList!: Quest[];
   questName!: string | null;
   questDescription!: string | null;
   questRank!: string |null;
@@ -56,9 +59,9 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
     this.questService.getQuests().subscribe({
       next: (quests) => {
         console.log('unmapped quests', Object.entries(quests))
-        this.questList = Object.entries(quests).map((e) => ({ quest: e[1], questID: e[0] } ));
-        console.log('quest list',this.questList)
-        this.questList = this.questList.map((quests: {questID: string; quest: any}) => ({
+        let unmappedQuests = Object.entries(quests).map((e) => ({ quest: e[1] as Quest, questID: e[0] } ));
+        console.log('quest list',unmappedQuests)
+        this.questList = unmappedQuests.map((quests: {questID: string; quest: Quest}) => ({
           title: quests.quest.title,
           description: quests.quest.description,
           requester: quests.quest.requester,
@@ -66,7 +69,9 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
           questID: quests.questID,
           questRank: quests.quest.questRank,
           adventurer: quests.quest.adventurer,
-          adventurersNeeded: quests.quest.adventurersNeeded
+          adventurersNeeded: quests.quest.adventurersNeeded,
+          datePosted: quests.quest.datePosted,
+          deadline: quests.quest.deadline
         }))
         console.log(this.questList)
       },
@@ -91,9 +96,11 @@ export class AppQuestBoardComponent implements OnInit, OnDestroy {
           description: this.questDescription,
           requester: this.currentUser?.name ? this.currentUser.name : this.currentUser?.email?.split("@")[0],
           questRank: this.questRank,
-          adventurersNeeded: this.adventurersNeeded
+          adventurersNeeded: this.adventurersNeeded,
+          datePosted: new Date(),
+          deadline: result.deadline
         }
-        console.log(newQuest,'new quest');
+        console.log('new quest',newQuest);
         this.postQuest(newQuest)
       }
     })
