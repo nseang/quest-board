@@ -91,6 +91,10 @@ export class QuestReceptionistService {
     this._questSource.next(chosenBoard);
   }
 
+  getCurrentBoard() {
+    return this.currentBoard;
+  }
+
   getCurrentUser() {
     return this.currentUser;
   }

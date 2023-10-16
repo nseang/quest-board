@@ -2,11 +2,12 @@
   <mat-drawer class="side-nav" #drawer [mode]="navMode">
     <p>Quest Boards</p>
     <ul *ngFor="let board of availableBoards">
-      <li><button mat-button (click)="setCurrentBoard(board.code)" (click)="drawer.toggle()">{{board.value}}</button></li>
+      <li><button mat-button (click)="setCurrentBoard(board)" (click)="drawer.toggle()">{{board.value}}</button></li>
     </ul>
   </mat-drawer>
   <mat-drawer-content class="app-container">
     <button mat-button (click)="drawer.toggle()"><fa-icon [icon]="menuBars"></fa-icon></button>
-    <app-quest-board></app-quest-board>
+    <app-quest-board
+    [currentBoard]="currentBoard"></app-quest-board>
   </mat-drawer-content>
 </mat-drawer-container>
