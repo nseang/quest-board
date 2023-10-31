@@ -47,10 +47,10 @@ export class QuestReceptionistService {
   getImages() {
     let urlList: any[] = [];
     let pins: string[] = [
-      '/assets/pin1.png',
-      '/assets/pin2.png',
-      '/assets/pin3.png',
-      '/assets/pin4.png',
+      'assets/pin1.png',
+      'assets/pin2.png',
+      'assets/pin3.png',
+      'assets/pin4.png',
     ]
     const ref3 = this.storage.ref(`${this.currentBoard}`) //find folder of images
     ref3.listAll().subscribe((data) => {
