@@ -5,6 +5,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { firebase } from 'firebaseui-angular';
 import { BehaviorSubject } from 'rxjs';
 import { Adventurer } from './models/adventurer';
+import {
+  AngularFireStorage
+} from '@angular/fire/compat/storage';
+
 
 
 @Injectable({
@@ -25,7 +29,8 @@ export class QuestReceptionistService {
   currentUser$ = this._questSource.asObservable();
   constructor(
     private http: HttpClient,
-    public afAuth: AngularFireAuth // Inject Firebase auth service
+    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    public storage: AngularFireStorage, //Firebase Storage
   ) { }
 
   signOut() {
@@ -37,6 +42,25 @@ export class QuestReceptionistService {
         name: ''
       }
     })
+  }
+
+  getImages() {
+    let urlList: any[] = [];
+    const ref3 = this.storage.ref(`${this.currentBoard}`) //find folder of images
+    ref3.listAll().subscribe((data) => {
+      data.items.forEach((item) => {
+        let newRef = this.storage.ref(`${this.currentBoard}/${item.name}`) //get all images in folder
+        newRef.getDownloadURL().subscribe((data) => {
+          let image = {
+            url: data,
+            rotation: Math.floor(Math.random() * 6) - 3 + "deg"
+          }
+          urlList.push(image)
+        })
+      })
+    })
+    return urlList
+
   }
 
   getQuestBoards() {

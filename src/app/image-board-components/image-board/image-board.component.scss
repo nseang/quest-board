@@ -1,0 +1,23 @@
+.image-board {
+  background-color: #301934;
+  width: 95vw;
+  min-height: 95vh;
+  margin: auto;
+  border-width: 10px;
+  border-color: white;
+  border-style: double;
+}
+
+.image-listing {
+  text-align: center;
+  background-color: white;
+  box-shadow: 7px 7px 7px #916429;
+  margin: 1rem;
+}
+
+.image-listing img {
+  height: 100%;
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}

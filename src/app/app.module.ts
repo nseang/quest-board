@@ -19,6 +19,7 @@ import { SideNavComponent } from './shared-components/side-nav/side-nav.componen
 import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from "@angular/fire/compat/auth";
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideStorage, getStorage} from '@angular/fire/storage'
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -32,6 +33,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserFormComponent } from './quest-board-components/user-form/user-form.component';
+import { ImageBoardComponent } from './image-board-components/image-board/image-board.component';
+import { HomeBoardComponent } from './home-board/home-board.component';
+import { ImagePopComponent } from './image-board-components/image-pop/image-pop.component';
 
 
 
@@ -55,7 +59,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     QuestDetailsModalComponent,
     OnlyNumbersDirective,
     SideNavComponent,
-    UserFormComponent
+    UserFormComponent,
+    ImageBoardComponent,
+    HomeBoardComponent,
+    ImagePopComponent
   ],
   imports: [
     BrowserModule,
@@ -75,9 +82,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatIconModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     // {provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['localhost', 4200] : undefined},
