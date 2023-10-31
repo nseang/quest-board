@@ -1,0 +1,15 @@
+.image-expand img {
+  height: 90vh;
+  max-width: 100%;
+  display: block;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0px;
+}
+
+::ng-deep .mat-dialog-content {
+  max-height: 90vh;
+  margin: 0px;
+  padding: 0px;
+}
