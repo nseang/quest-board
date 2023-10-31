@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col" *ngFor="let image of imageList">
       <div class="image-listing" [ngStyle]="{'transform': 'rotate('+image.rotation+')'}">
+        <img src={{image.pin}} alt="image" class="push-pin">
         <img src={{image.url}} (click)="popOutImage(image.url)">
       </div>
     </div>

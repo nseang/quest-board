@@ -46,6 +46,12 @@ export class QuestReceptionistService {
 
   getImages() {
     let urlList: any[] = [];
+    let pins: string[] = [
+      '/assets/pin1.png',
+      '/assets/pin2.png',
+      '/assets/pin3.png',
+      '/assets/pin4.png',
+    ]
     const ref3 = this.storage.ref(`${this.currentBoard}`) //find folder of images
     ref3.listAll().subscribe((data) => {
       data.items.forEach((item) => {
@@ -53,7 +59,8 @@ export class QuestReceptionistService {
         newRef.getDownloadURL().subscribe((data) => {
           let image = {
             url: data,
-            rotation: Math.floor(Math.random() * 6) - 3 + "deg"
+            rotation: Math.floor(Math.random() * 6) - 3 + "deg",
+            pin: pins[Math.floor(Math.random() * pins.length)]
           }
           urlList.push(image)
         })

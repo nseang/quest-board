@@ -8,11 +8,20 @@
   border-style: double;
 }
 
+.push-pin {
+  position: absolute;
+  top:0;
+  left:50%;
+  width: 50px;
+  height: 50px !important;
+}
+
 .image-listing {
   text-align: center;
   background-color: white;
-  box-shadow: 7px 7px 7px #916429;
+  box-shadow: 7px 7px 7px #208000;
   margin: 1rem;
+  width: 340px;
 }
 
 .image-listing img {
